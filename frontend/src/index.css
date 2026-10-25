@@ -1,0 +1,393 @@
+/* ========================================================
+   THE IMOVIES - Cinema Design System
+   Visual Palette:
+   - Primary Background: Warm Ivory (#EAE6DE)
+   - Primary Text, Headings & Navigation: Deep Editorial Blue (#226192)
+   - Call to Actions & Selected States: Coral Orange (#EF8557)
+   - Surfaces: Clean White (#FFFFFF) & Soft Ivory (#F5F2EB)
+   ======================================================== */
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+  /* Approved Core Palette */
+  --bg-primary: #EAE6DE;          /* Warm Ivory */
+  --bg-surface: #FFFFFF;          /* Pure White for crisp content & legibility */
+  --bg-surface-soft: #F5F2EB;     /* Muted Ivory surface */
+  --bg-surface-elevated: #DFD9CE; /* Elevated Warm Ivory */
+
+  --text-main: #153C5B;           /* Deep Editorial Navy (High contrast body) */
+  --text-heading: #226192;        /* Deep Editorial Blue */
+  --text-muted: #4B637A;          /* Slate Editorial Blue */
+  --text-dim: #758A9E;            /* Subdued Slate */
+
+  --accent-coral: #EF8557;        /* Coral Orange (CTA & Highlights) */
+  --accent-coral-hover: #DF6E3D;
+  --accent-coral-subtle: rgba(239, 133, 87, 0.12);
+
+  --accent-blue: #226192;         /* Deep Editorial Blue */
+  --accent-blue-dark: #164366;
+  --accent-blue-subtle: rgba(34, 97, 146, 0.1);
+
+  --border-subtle: #D8D2C4;
+  --border-strong: #C4BCAC;
+  --border-focus: #EF8557;
+
+  /* Cinema Seat Map Tokens */
+  --seat-available: #CBD7E2;
+  --seat-available-border: #99B2C8;
+  --seat-selected: #EF8557;
+  --seat-selected-border: #DF6E3D;
+  --seat-held: #F6AD55;
+  --seat-booked: #94A3B8;
+
+  --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition-smooth: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-soft: 0 4px 20px -2px rgba(21, 60, 91, 0.07);
+  --shadow-cinema: 0 12px 30px -4px rgba(21, 60, 91, 0.14);
+  --shadow-coral: 0 6px 18px rgba(239, 133, 87, 0.35);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Accessibility: Keyboard Navigation & Visible Focus States */
+:focus-visible {
+  outline: 3px solid var(--accent-coral) !important;
+  outline-offset: 2px !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--accent-coral) !important;
+  outline-offset: 2px !important;
+}
+
+.skip-to-main {
+  position: absolute;
+  top: -9999px;
+  left: 20px;
+  background: var(--text-heading);
+  color: #FFFFFF !important;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  border-radius: 8px;
+  z-index: 10000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  transition: top 0.2s ease;
+}
+.skip-to-main:focus {
+  top: 20px;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-coral);
+}
+
+/* Base Typography */
+a {
+  color: var(--text-heading);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+a:hover {
+  color: var(--accent-coral);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Primary Action Buttons (Coral Orange) */
+.btn-cinema-primary {
+  background: linear-gradient(135deg, #EF8557 0%, #E36D3A 100%);
+  color: #FFFFFF !important;
+  border: none;
+  font-weight: 700;
+  padding: 0.65rem 1.4rem;
+  border-radius: 10px;
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px rgba(239, 133, 87, 0.28);
+}
+.btn-cinema-primary:hover, .btn-cinema-primary:focus {
+  background: linear-gradient(135deg, #F09166 0%, #D86330 100%);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-coral);
+}
+
+/* Deep Editorial Blue Buttons */
+.btn-cinema-gold, .btn-cinema-blue {
+  background: linear-gradient(135deg, #226192 0%, #164366 100%);
+  color: #FFFFFF !important;
+  border: none;
+  font-weight: 700;
+  padding: 0.65rem 1.4rem;
+  border-radius: 10px;
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px rgba(34, 97, 146, 0.25);
+}
+.btn-cinema-gold:hover, .btn-cinema-blue:hover,
+.btn-cinema-gold:focus, .btn-cinema-blue:focus {
+  background: linear-gradient(135deg, #2974AE 0%, #1A4D75 100%);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(34, 97, 146, 0.35);
+}
+
+/* Outline Buttons */
+.btn-cinema-outline {
+  background: var(--bg-surface);
+  color: var(--text-heading) !important;
+  border: 1.5px solid var(--border-subtle);
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  border-radius: 10px;
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.btn-cinema-outline:hover, .btn-cinema-outline:focus {
+  background: #FFFFFF;
+  border-color: var(--accent-coral);
+  color: var(--accent-coral) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Card & Surface System */
+.cinema-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-smooth);
+}
+.cinema-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-cinema);
+}
+
+.cinema-glass {
+  background: rgba(234, 230, 222, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Badges */
+.badge-rating {
+  background: #FFF4EE;
+  color: #D35C2B;
+  border: 1px solid #FCD4C3;
+  font-weight: 800;
+  border-radius: 8px;
+  padding: 0.25rem 0.55rem;
+}
+.badge-format {
+  background: #EDF5FB;
+  color: #226192;
+  border: 1px solid #CFE2F0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 0.22rem 0.5rem;
+}
+.badge-age {
+  background: var(--bg-surface-soft);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 0.22rem 0.5rem;
+}
+
+/* Inputs & Form Controls */
+.cinema-input {
+  background-color: var(--bg-surface) !important;
+  border: 1.5px solid var(--border-subtle) !important;
+  color: var(--text-main) !important;
+  border-radius: 10px !important;
+  padding: 0.65rem 1rem !important;
+  transition: var(--transition-smooth) !important;
+}
+.cinema-input:focus {
+  border-color: var(--accent-coral) !important;
+  box-shadow: 0 0 0 3px rgba(239, 133, 87, 0.22) !important;
+  outline: none !important;
+}
+.cinema-input::placeholder {
+  color: var(--text-dim) !important;
+}
+
+/* Cinema Curved Screen Visualization */
+.cinema-screen-container {
+  perspective: 600px;
+  text-align: center;
+  margin: 1.5rem 0 2.2rem;
+}
+.cinema-screen-curve {
+  height: 12px;
+  width: 82%;
+  max-width: 620px;
+  margin: 0 auto;
+  border-top: 5px solid var(--text-heading);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow: 0 10px 20px rgba(34, 97, 146, 0.25);
+  position: relative;
+}
+.cinema-screen-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-top: 0.75rem;
+}
+
+/* Seat Elements */
+.seat-node {
+  width: 32px;
+  height: 30px;
+  border-radius: 7px 7px 4px 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+  position: relative;
+}
+.seat-node.available {
+  background: var(--seat-available);
+  border: 1px solid var(--seat-available-border);
+  color: var(--text-main);
+}
+.seat-node.available:hover {
+  transform: scale(1.15);
+  background: #B9CEDB;
+  border-color: var(--accent-coral);
+  color: var(--accent-coral);
+  box-shadow: 0 0 10px rgba(239, 133, 87, 0.35);
+}
+.seat-node.selected {
+  background: var(--accent-coral) !important;
+  border: 1.5px solid var(--accent-coral-hover) !important;
+  color: #FFFFFF !important;
+  font-weight: 800;
+  transform: scale(1.15);
+  box-shadow: var(--shadow-coral);
+}
+.seat-node.held {
+  background: #FEF3C7;
+  border: 1.5px dashed #F59E0B;
+  color: #B45309;
+  cursor: not-allowed;
+}
+.seat-node.booked {
+  background: #D9DFE5;
+  border: 1px solid #B8C2CC;
+  color: #8C9CAE;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.seat-tier-vip {
+  border-top: 2.5px solid var(--accent-coral) !important;
+}
+.seat-tier-premium {
+  border-top: 2.5px solid var(--accent-blue) !important;
+}
+
+/* Mobile Responsiveness for Seat Grid */
+@media (max-width: 576px) {
+  .seat-node {
+    width: 24px;
+    height: 24px;
+    font-size: 0.6rem;
+    border-radius: 4px;
+  }
+}
+
+/* Modal System */
+.cinema-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(21, 60, 91, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.cinema-modal-content {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  max-width: 540px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px -10px rgba(21, 60, 91, 0.35);
+  color: var(--text-main);
+}
+
+/* Ticket Print Styles */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .ticket-print-card {
+    border: 2px solid #226192 !important;
+    color: #000000 !important;
+    background: #FFFFFF !important;
+  }
+}
