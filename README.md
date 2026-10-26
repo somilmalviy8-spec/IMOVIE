@@ -32,11 +32,12 @@
   - **10-minute temporary seat hold** with live countdown timer to prevent race conditions and double-booking.
   - Auto-release mechanism when hold expires or when a user deselects.
 
-- **🎟️ Streamlined Ticket Booking**:
-  - Direct, single-click booking confirmation with zero third-party payment gateway friction.
-  - Generates verifiable digital ticket passes with unique confirmation codes, barcodes, and QR metadata.
+- **🎟️ Streamlined Ticket Booking & Educational Payment Sandbox**:
+  - Interactive **Educational Demo Payment Gateway**: simulated Card (Visa, Mastercard, RuPay with live preview and test autofill), UPI & dynamic QR code, Net Banking, and Wallets.
+  - Realistic **3D-Secure 2.0 / OTP verification simulation** with instant settlement and verified digital ticket pass issuance.
+  - Dedicated **Ticket Booking History & Archive (`/history`)** accessible directly beside *Coming Soon* in the navigation bar and homepage status tabs.
   - Print-friendly ticket layout formatted for clean physical receipts.
-  - Customer booking history dashboard with self-service cancellation for eligible upcoming showtimes.
+  - Self-service cancellation for eligible upcoming showtimes (> 2 hours prior to start) with automatic seat inventory restoration.
 
 - **📊 Cinema Administration Portal (`/admin`)**:
   - KPI overview metrics (total revenue in ₹, tickets booked, active movies, and scheduled screenings).
