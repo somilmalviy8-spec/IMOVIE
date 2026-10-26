@@ -13,15 +13,17 @@ const {
   validateLogin,
   validateProfileUpdate,
 } = require('../middleware/validators');
+const requireDbConnection = require('../middleware/dbCheck');
 
-// Public authentication routes
-router.post('/register', validateRegister, register);
-router.post('/login', validateLogin, login);
+// Public authentication routes (guarded with DB connection check)
+router.post('/register', requireDbConnection, validateRegister, register);
+router.post('/login', requireDbConnection, validateLogin, login);
 router.post('/logout', logout);
 
 // Protected user profile routes
-router.get('/me', protect, getMe);
-router.get('/profile', protect, getMe);
-router.put('/profile', protect, validateProfileUpdate, updateProfile);
+router.get('/me', requireDbConnection, protect, getMe);
+router.get('/profile', requireDbConnection, protect, getMe);
+router.put('/profile', requireDbConnection, protect, validateProfileUpdate, updateProfile);
 
 module.exports = router;
+

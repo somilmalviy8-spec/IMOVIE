@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Film, User, Ticket, Shield, LogOut, Menu, X, ChevronDown } from 'lucide-react';
+import { Film, User, Ticket, Shield, LogOut, Menu, X, ChevronDown, History } from 'lucide-react';
 
 const Navbar = () => {
   const { user, isAuthenticated, isAdmin, logout, openAuthModal } = useAuth();
@@ -92,6 +92,21 @@ const Navbar = () => {
                 }}
               >
                 Coming Soon
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/history"
+                className={({ isActive }) =>
+                  `nav-link px-2 fw-semibold d-flex align-items-center gap-1 ${
+                    isActive ? 'fw-bold text-decoration-underline' : ''
+                  }`
+                }
+                style={{ color: 'var(--text-muted)' }}
+                onClick={closeMenus}
+              >
+                <History size={16} style={{ color: 'var(--accent-coral)' }} />
+                <span>History</span>
               </NavLink>
             </li>
 

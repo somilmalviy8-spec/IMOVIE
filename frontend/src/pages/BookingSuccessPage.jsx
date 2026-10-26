@@ -11,6 +11,7 @@ import {
   QrCode,
   ArrowRight,
   Share2,
+  ShieldCheck,
 } from 'lucide-react';
 import { formatINR } from '../utils/currency';
 
@@ -187,7 +188,7 @@ const BookingSuccessPage = () => {
             </div>
 
             {/* Seats Banner */}
-            <div className="p-3 rounded-3 mb-4 d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3" style={{ backgroundColor: 'var(--bg-surface-soft)', border: '1px solid var(--border-subtle)' }}>
+            <div className="p-3 rounded-3 mb-3 d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3" style={{ backgroundColor: 'var(--bg-surface-soft)', border: '1px solid var(--border-subtle)' }}>
               <div>
                 <span className="small d-block fw-semibold" style={{ color: 'var(--text-muted)' }}>Reserved Seats ({booking.seats?.length}):</span>
                 <div className="d-flex flex-wrap gap-1 mt-1">
@@ -202,6 +203,39 @@ const BookingSuccessPage = () => {
               <div className="text-sm-end">
                 <span className="small d-block" style={{ color: 'var(--text-dim)' }}>Confirmed Total:</span>
                 <span className="fs-4 fw-black" style={{ color: 'var(--text-heading)' }}>{formatINR(booking.totalAmount)}</span>
+              </div>
+            </div>
+
+            {/* Demo Payment Receipt Details */}
+            <div
+              className="p-3 rounded-3 mb-4"
+              style={{
+                backgroundColor: '#F8FAFC',
+                border: '1px dashed #CBD5E1',
+              }}
+            >
+              <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                <span className="small fw-bold d-flex align-items-center gap-1" style={{ color: 'var(--text-heading)' }}>
+                  <ShieldCheck size={16} className="text-success" /> Payment Receipt (Educational Sandbox)
+                </span>
+                <span className="badge bg-success-subtle text-success border border-success-subtle font-monospace" style={{ fontSize: '0.72rem' }}>
+                  ✓ PAID & SETTLED
+                </span>
+              </div>
+              <div className="row g-2 small text-muted font-monospace" style={{ fontSize: '0.78rem' }}>
+                <div className="col-sm-6">
+                  <span className="text-secondary">Channel:</span>{' '}
+                  <span className="text-dark fw-bold text-uppercase">
+                    {booking.paymentDetails?.method || 'Demo Card'}
+                  </span>{' '}
+                  ({booking.paymentDetails?.maskedCardOrVpa || '•••• 4242'})
+                </div>
+                <div className="col-sm-6 text-sm-end">
+                  <span className="text-secondary">Txn Ref:</span>{' '}
+                  <span className="text-dark fw-bold">
+                    {booking.paymentDetails?.transactionId || `TXN_DEMO_${booking._id.slice(-8)}`}
+                  </span>
+                </div>
               </div>
             </div>
 

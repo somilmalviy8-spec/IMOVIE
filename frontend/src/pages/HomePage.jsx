@@ -5,6 +5,7 @@ import HeroBanner from '../components/movies/HeroBanner';
 import MovieCard from '../components/movies/MovieCard';
 import TrailerModal from '../components/movies/TrailerModal';
 import { DEMO_MOVIES } from '../data/demoData';
+import BookingHistorySection from '../components/bookings/BookingHistorySection';
 import {
   Search,
   Film,
@@ -16,6 +17,7 @@ import {
   Clapperboard,
   RefreshCw,
   Info,
+  History,
 } from 'lucide-react';
 
 const GENRES = ['All', 'Action', 'Sci-Fi', 'Drama', 'Adventure', 'Biography', 'Animation', 'Crime', 'Thriller'];
@@ -52,6 +54,11 @@ const HomePage = () => {
 
   // Fetch movies from backend API, with fallback to clearly labeled demo data if database is offline
   const fetchMovies = async (forceDemo = false) => {
+    if (currentStatus === 'history') {
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError('');
 
@@ -347,6 +354,20 @@ const HomePage = () => {
             >
               Coming Soon
             </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={currentStatus === 'history'}
+              className={`btn px-3 py-1 rounded-2 small fw-bold transition d-inline-flex align-items-center gap-1 ${
+                currentStatus === 'history'
+                  ? 'btn-cinema-primary text-white shadow-sm'
+                  : 'border-0 bg-transparent'
+              }`}
+              style={{ color: currentStatus === 'history' ? '#FFFFFF' : 'var(--text-heading)' }}
+              onClick={() => handleStatusChange('history')}
+            >
+              <History size={14} /> History
+            </button>
           </div>
 
           {/* Sort Dropdown */}
@@ -426,7 +447,7 @@ const HomePage = () => {
 
             {currentStatus !== 'all' && (
               <span className="badge d-inline-flex align-items-center gap-1" style={{ backgroundColor: 'var(--bg-surface)', color: 'var(--text-main)', border: '1px solid var(--border-subtle)' }}>
-                Status: {currentStatus === 'now_showing' ? 'Now Showing' : 'Coming Soon'}
+                Status: {currentStatus === 'now_showing' ? 'Now Showing' : currentStatus === 'coming_soon' ? 'Coming Soon' : 'Ticket History'}
                 <button
                   type="button"
                   className="btn btn-link p-0 text-danger border-0 ms-1"
@@ -465,8 +486,10 @@ const HomePage = () => {
           </div>
         )}
 
-        {/* Catalog Content: Loading Skeleton / Empty State / Movie Grid */}
-        {loading ? (
+        {/* Catalog Content: History Section / Loading Skeleton / Empty State / Movie Grid */}
+        {currentStatus === 'history' ? (
+          <BookingHistorySection isFullPage={false} />
+        ) : loading ? (
           /* Loading Skeleton State */
           <div className="row g-4" aria-live="polite" aria-busy="true">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (

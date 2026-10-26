@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const User = require('../models/User');
 
 // @desc    Register a new customer account
@@ -5,6 +6,14 @@ const User = require('../models/User');
 // @access  Public
 const register = async (req, res) => {
   try {
+    // Explicit guard: Do not query User model if database connection is not ready
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        success: false,
+        message: 'Database service is currently unavailable. Please verify MongoDB connection and try again.',
+      });
+    }
+
     const { name, email, password } = req.body;
 
     // Check for existing account with same email
@@ -39,7 +48,13 @@ const register = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('Registration error:', error);
+    console.error('Registration error:', error.message || error);
+    if (error.name === 'MongooseError' && error.message.includes('buffering timed out')) {
+      return res.status(503).json({
+        success: false,
+        message: 'Database connection timed out. Please verify that MongoDB is online and reachable.',
+      });
+    }
     res.status(500).json({
       success: false,
       message: error.message || 'Server error during registration.',
@@ -52,6 +67,13 @@ const register = async (req, res) => {
 // @access  Public
 const login = async (req, res) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        success: false,
+        message: 'Database service is currently unavailable. Please verify MongoDB connection and try again.',
+      });
+    }
+
     const { email, password } = req.body;
 
     // Find user and explicitly select password hash

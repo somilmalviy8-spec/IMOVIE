@@ -250,6 +250,11 @@ const ProfilePage = () => {
                           <span className="small text-muted font-monospace">
                             REF: {b.bookingReference}
                           </span>
+                          {b.paymentDetails?.method && (
+                            <span className="badge bg-light text-secondary border font-monospace text-uppercase" style={{ fontSize: '0.62rem' }}>
+                              💳 {b.paymentDetails.method}
+                            </span>
+                          )}
                         </div>
 
                         <h5 className="fw-bold mb-1" style={{ color: 'var(--text-heading)' }}>{b.movie?.title}</h5>

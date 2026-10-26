@@ -10,6 +10,7 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import MovieDetailsPage from './pages/MovieDetailsPage';
 import SeatSelectionPage from './pages/SeatSelectionPage';
+import HistoryPage from './pages/HistoryPage';
 import CheckoutPage from './pages/CheckoutPage';
 import BookingSuccessPage from './pages/BookingSuccessPage';
 import ProfilePage from './pages/ProfilePage';
@@ -31,6 +32,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/movies/:idOrSlug" element={<MovieDetailsPage />} />
               <Route path="/seat-selection/:showtimeId" element={<SeatSelectionPage />} />
+              <Route path="/history" element={<HistoryPage />} />
 
               {/* User Protected Routes */}
               <Route

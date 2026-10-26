@@ -54,7 +54,39 @@ const bookingSchema = new mongoose.Schema(
     },
     paymentNote: {
       type: String,
-      default: 'Payment processing is out of scope. Direct confirmation applied.',
+      default: 'Educational Demo Payment Gateway: Simulated transaction completed.',
+    },
+    paymentDetails: {
+      method: {
+        type: String,
+        enum: ['card', 'upi', 'netbanking', 'wallet', 'direct_demo'],
+        default: 'card',
+      },
+      transactionId: {
+        type: String,
+        trim: true,
+      },
+      status: {
+        type: String,
+        enum: ['completed', 'pending', 'refunded'],
+        default: 'completed',
+      },
+      maskedCardOrVpa: {
+        type: String,
+        trim: true,
+      },
+      bankOrProvider: {
+        type: String,
+        trim: true,
+      },
+      paidAt: {
+        type: Date,
+        default: Date.now,
+      },
+      isDemoSandbox: {
+        type: Boolean,
+        default: true,
+      },
     },
     qrData: {
       type: String,

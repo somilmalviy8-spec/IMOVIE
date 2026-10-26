@@ -185,7 +185,8 @@ const holdSeats = async (req, res) => {
 
     const now = new Date();
     const HOLD_DURATION_MS = 10 * 60 * 1000; // 10 minutes
-    const holdUntil = new Date(Date.now() + HOLD_DURATION_MS);
+    const heldUntil = new Date(Date.now() + HOLD_DURATION_MS);
+    const holdUntil = heldUntil;
 
     // Concurrency check: Ensure every requested seat is either available, or held by this user, or held with expired timestamp
     for (const reqSeat of seats) {

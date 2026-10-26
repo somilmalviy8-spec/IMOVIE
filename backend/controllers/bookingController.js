@@ -16,7 +16,7 @@ const generateBookingReference = () => {
 // @access  Private
 const createBooking = async (req, res) => {
   try {
-    const { showtimeId, seats } = req.body;
+    const { showtimeId, seats, paymentDetails } = req.body;
     const userId = req.user._id;
 
     if (!showtimeId || !seats || !Array.isArray(seats) || seats.length === 0) {
@@ -106,6 +106,23 @@ const createBooking = async (req, res) => {
     // Calculate total amount
     const totalAmount = validatedSeats.reduce((acc, s) => acc + s.price, 0);
 
+    // Build educational demo payment details
+    const demoTransactionId =
+      paymentDetails?.transactionId ||
+      `TXN_DEMO_${Date.now()}_${Math.floor(1000 + Math.random() * 9000)}`;
+
+    const demoPaymentRecord = {
+      method: paymentDetails?.method || 'card',
+      transactionId: demoTransactionId,
+      status: 'completed',
+      maskedCardOrVpa:
+        paymentDetails?.maskedCardOrVpa ||
+        (paymentDetails?.method === 'upi' ? `${req.user.email.split('@')[0]}@okhdfcbank` : '•••• •••• •••• 4242'),
+      bankOrProvider: paymentDetails?.bankOrProvider || 'Demo Sandbox Bank',
+      paidAt: new Date(),
+      isDemoSandbox: true,
+    };
+
     // Build QR payload
     const qrPayload = JSON.stringify({
       ref: bookingReference,
@@ -117,6 +134,7 @@ const createBooking = async (req, res) => {
       seats: validatedSeats.map((s) => `${s.row}${s.number}`).join(','),
       amount: totalAmount,
       currency: 'INR',
+      paymentTxn: demoTransactionId,
       issuedAt: new Date().toISOString(),
     });
 
@@ -136,7 +154,8 @@ const createBooking = async (req, res) => {
       totalAmount,
       currency: 'INR',
       status: 'confirmed',
-      paymentNote: 'Direct confirmation. Payment processing is out of scope.',
+      paymentNote: 'Educational Demo Payment Gateway: Simulated transaction successfully authorized.',
+      paymentDetails: demoPaymentRecord,
       qrData: qrPayload,
     });
 

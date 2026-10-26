@@ -266,7 +266,7 @@ const SeatSelectionPage = () => {
                 </>
               ) : (
                 <>
-                  <Ticket size={18} /> Proceed to Review
+                  <Ticket size={18} /> Proceed to Review & Pay
                 </>
               )}
             </button>

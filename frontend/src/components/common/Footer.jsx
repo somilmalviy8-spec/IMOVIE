@@ -1,5 +1,5 @@
 import React from 'react';
-import { Film, Info } from 'lucide-react';
+import { Film, Info, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -47,6 +47,11 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/history" style={{ color: '#BACCDA' }} className="hover-coral">
+                  Ticket History
+                </Link>
+              </li>
+              <li>
                 <Link to="/#theatres" style={{ color: '#BACCDA' }} className="hover-coral">
                   Cinemas & Formats
                 </Link>
@@ -89,10 +94,10 @@ const Footer = () => {
                 className="d-flex align-items-center gap-2 mb-2 small fw-bold"
                 style={{ color: 'var(--accent-coral)' }}
               >
-                <Info size={16} /> Payment Notice
+                <ShieldCheck size={16} /> Educational Demo Payment
               </div>
               <p className="small mb-0" style={{ fontSize: '0.8rem', lineHeight: '1.45', color: '#BACCDA' }}>
-                Payment processing is explicitly <strong>out of scope</strong> for this academic demonstration project. No real financial credentials or payment cards are required or collected. Bookings are instantly confirmed directly upon review.
+                An educational <strong>demo payment sandbox</strong> (Cards, UPI QR, NetBanking, Wallets) is active for demonstration. Simulated 3D-Secure authorization generates verified digital tickets without processing real financial charges.
               </p>
             </div>
           </div>
